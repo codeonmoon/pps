@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "properties": {
+    "transactionId": {
+      "description": "Transaction Id for payment",
+      "type": "string",
+      "format": "uuid",
+      "maxLength": 36
+    },
+    "payerName": {
+      "description": "Payers's first and last name",
+      "type": "string",
+      "maxLength": 35
+    },
+    "payeeName": {
+      "description": "Payee's first and last name",
+      "type": "string",
+      "maxLength": 35
+    },
+    "valueDate": {
+      "description": "YYYY-MM-DDThh:mm:ss for example : 2004-02-21T08:35:30",
+      "type": "string",
+      "maxLength": 20,
+      "format": "date-time"
+    },
+    "amount": {
+      "description": "2 decimal places must be supplied, for examples: 17.45",
+      "type": "number",
+      "maxLength": 19
+    },
+    "currency": {
+      "description": "ISO Standards currency code, for example: EUR, GBP",
+      "type": "string",
+      "pattern": "^[a-zA-Z]{3}$",
+      "maxLength": 3
+    },
+    "payeeCountryCode": {
+      "description": "ISO Standard country code, for example: DE, GB, AT",
+      "type": "string",
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$"
+    },
+    "payerCountryCode": {
+      "description": "ISO Standard country code, for example: DE, GB, AT",
+      "type": "string",
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$"
+    },
+    "payerBank": {
+      "description": "Name of the payer's bank",
+      "type": "string",
+      "maxLength": 15
+    },
+    "payeeBank": {
+      "description": "Name of the payee's bank",
+      "type": "string",
+      "maxLength": 15
+    }
+  },
+  "required": [
+    "transactionId",
+    "payerName",
+    "payeeName",
+    "valueDate",
+    "amount",
+    "currency",
+    "payerCountryCode",
+    "payeeCountryCode",
+    "payerBank",
+    "payeeBank"
+  ],
+  "type": "object"
+}
