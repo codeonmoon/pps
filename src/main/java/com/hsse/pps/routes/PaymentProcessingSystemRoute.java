@@ -1,11 +1,9 @@
 package com.hsse.pps.routes;
 
-import com.hsse.pps.exception.PaymentProcessorException;
 import com.hsse.pps.model.Payment;
 import com.hsse.pps.model.Response;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jsonvalidator.JsonValidationException;
 import org.apache.camel.model.dataformat.JsonLibrary;
@@ -24,12 +22,9 @@ public class PaymentProcessingSystemRoute extends RouteBuilder {
         onException(JsonValidationException.class)
                 .handled(true)
                 .log("Error occurred while validating JSON!")
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        Exception cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
-                        logger.error("Exception occurred while validation {} ", cause.getMessage());
-                    }
+                .process(exchange -> {
+                    Exception cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
+                    logger.error("Exception occurred while validation {} ", cause.getMessage());
                 })
                 .to("{{validation.failed}}");
 
